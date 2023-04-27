@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Linux tutorial</title>
+</head>
+
+<style>
+@import url(web/style.css);
+
+.join,
+.link,
+.node rect {
+  fill: none;
+  stroke: #636363;
+  stroke-width: 1.5px;
+}
+
+.link {
+  stroke: #969696;
+}
+
+.node rect {
+  fill: white;
+}
+
+.link path,
+.node rect,
+.node text,
+.join {
+  -webkit-transition: stroke-opacity 500ms linear, fill-opacity 500ms linear;
+  -moz-transition: stroke-opacity 500ms linear, fill-opacity 500ms linear;
+  -ms-transition: stroke-opacity 500ms linear, fill-opacity 500ms linear;
+  -o-transition: stroke-opacity 500ms linear, fill-opacity 500ms linear;
+  transition: stroke-opacity 500ms linear, fill-opacity 500ms linear;
+}
+
+.node .element rect {
+  fill: #bdbdbd;
+  stroke: none;
+}
+
+.node .null rect {
+  fill: none;
+  stroke: none;
+}
+
+.node .null text {
+  fill: #636363;
+}
+
+.node .selection rect {
+  stroke: #e6550d;
+}
+
+.node .data rect {
+  stroke: #3182bd;
+}
+
+.node .datum rect {
+  fill: #d9d9d9;
+  stroke: none;
+}
+
+.node .code text {
+  font-family: monospace;
+}
+
+.node .key rect {
+  fill: #a1d99b;
+  stroke: none;
+}
+
+.link .to-key,
+.join {
+  stroke: #a1d99b;
+}
+
+.join {
+  stroke-dasharray: 2,2;
+}
+
+.link .to-null {
+  stroke-dasharray: .5,3.5;
+  stroke-linecap: round;
+}
+
+.link .from-data {
+  stroke: #3182bd;
+}
+
+.play circle {
+  fill: #fff;
+  stroke: #000;
+  stroke-width: 3px;
+}
+
+.play:hover path {
+  fill: #f00;
+}
+
+.play.mousedown circle {
+  fill: #f00;
+}
+
+.play.mousedown path {
+  fill: #fff;
+}
+
+.play rect {
+  fill: none;
+  pointer-events: all;
+  cursor: pointer;
+}
+
+code span {
+  -webkit-transition: background 250ms linear;
+  -moz-transition: background 250ms linear;
+  -ms-transition: background 250ms linear;
+  -o-transition: background 250ms linear;
+  transition: background 250ms linear;
+}
+
+pre.prettyprint, code.prettyprint {
+  background-color: #222;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+pre.prettyprint {
+  width: 90%;
+  margin: 0.5em;
+  padding: 1em;
+  white-space: pre-wrap;
+}
+</style>
+
+<h5>Gnome</h5>
+<br>
+
+<table width=780 style="border-spacing: 0px"><tbody>
+<tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl+Alt T</code></strong></td><td style="padding-top: 1px" valign="top">Terminal</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl+Alt F</code></strong></td><td style="padding-top: 1px" valign="top">Firefox</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl+Alt H</code></strong></td><td style="padding-top: 1px" valign="top">Home</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl+Alt G</code></strong></td><td style="padding-top: 1px" valign="top">Gedit</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Alt F12</code></strong></td><td style="padding-top: 1px" valign="top">Run command</td></tr>
+
+</tbody></table><br>
+<table width=780 style="border-spacing: 0px"><tbody>
+<tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Alt F1</code></strong></td><td style="padding-top: 1px" valign="top">Minimize window</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Alt F2</code></strong></td><td style="padding-top: 1px" valign="top">Toggle maximize window</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Alt F3</code></strong></td><td style="padding-top: 1px" valign="top">Toggle full screen</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl+Alt D</code></strong></td><td style="padding-top: 1px" valign="top">Minimize all windows</td></tr>
+
+</tbody></table><br>
+<table width=780 style="border-spacing: 0px"><tbody>
+<tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl+Alt F1-F6</code></strong></td><td style="padding-top: 1px" valign="top">Terminals (tty-s)</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl+Alt F7-F12</code></strong></td><td style="padding-top: 1px" valign="top">Xwindows</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl+Alt Bksp</code></strong></td><td style="padding-top: 1px" valign="top">Restart X</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl+Alt Del</code></strong></td><td style="padding-top: 1px" valign="top">Log out</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl+Alt End</code></strong></td><td style="padding-top: 1px" valign="top">Shutdown</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Super PgUp/PgDn</code></strong></td><td style="padding-top: 1px" valign="top">Switch workspace</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Middle mouse button</code></strong></td><td style="padding-top: 1px" valign="top">Paste selected text</td></tr>
+
+</tbody></table><br>
+<h3>Nautilus/Nemo</h3>
+<table width=780 style="border-spacing: 0px"><tbody>
+<tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl L</code></strong></td><td style="padding-top: 1px" valign="top">Location, show path</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl+Shift N</code></strong></td><td style="padding-top: 1px" valign="top">New folder</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl H</code></strong></td><td style="padding-top: 1px" valign="top">Show hidden files</td></tr>
+
+</tbody></table><br>
+<h3>Gedit</h3>
+<table width=780 style="border-spacing: 0px"><tbody>
+<tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl G</code></strong></td><td style="padding-top: 1px" valign="top">Find next</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl+Shift G</code></strong></td><td style="padding-top: 1px" valign="top">Find previous</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl+Shift K</code></strong></td><td style="padding-top: 1px" valign="top">Clear highlights</td></tr>
+
+</tbody></table><br>
+<h3>Terminal</h3>
+<table width=780 style="border-spacing: 0px"><tbody>
+<tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl+Shift C</code></strong></td><td style="padding-top: 1px" valign="top">Copy</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl+Shift V</code></strong></td><td style="padding-top: 1px" valign="top">Paste</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl+Shift T</code></strong></td><td style="padding-top: 1px" valign="top">New tab <br></td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl+Shift W</code></strong></td><td style="padding-top: 1px" valign="top">Close tab   <br></td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl PgUp/PgDn</code></strong></td><td style="padding-top: 1px" valign="top">Switch tab</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl +/-</code></strong></td><td style="padding-top: 1px" valign="top">Zoom</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl D</code></strong></td><td style="padding-top: 1px" valign="top">Close terminal</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl S</code></strong></td><td style="padding-top: 1px" valign="top">Scroll lock</td></tr>
+
+</tbody></table><br>
+<h3>Bash</h3>
+<p>Keys when in emacs mode. You can switch to '<code>vi</code>' mode with '<code>set -o vi</code>' command.</p>
+<table width=780 style="border-spacing: 0px"><tbody>
+<tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl C</code></strong></td><td style="padding-top: 1px" valign="top">Interrupt, erase line</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl A</code></strong></td><td style="padding-top: 1px" valign="top">Go to beginning of line</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl E</code></strong></td><td style="padding-top: 1px" valign="top">End of line</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl U</code></strong></td><td style="padding-top: 1px" valign="top">Copy line</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl Y</code></strong></td><td style="padding-top: 1px" valign="top">Paste line</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Alt .</code></strong></td><td style="padding-top: 1px" valign="top">Last argument</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl R</code></strong></td><td style="padding-top: 1px" valign="top">Search trough history</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Alt *</code></strong></td><td style="padding-top: 1px" valign="top">Show all matches for regular expression</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl+Alt E</code></strong></td><td style="padding-top: 1px" valign="top">Show current line passed through alias, history and shell expansion</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl X, Ctrl E</code></strong></td><td style="padding-top: 1px" valign="top">Edit command in editor</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl P</code></strong></td><td style="padding-top: 1px" valign="top">Show last command (same as up arrow)</td></tr>
+
+</tbody></table><br>
+
+<p><br><p>
+<h5>Awesome Terminal Commands</h5>
+<h2>Packages<a href="#packages" name="packages">#</a></h2>
+<table width=780 style="border-spacing: 0px"><tbody>
+<tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>dpkg</code></strong></td><td style="padding-top: 7px" valign="top">Low level package manager for Debian.</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-l</code></strong></td><td style="padding-top:0px" valign="top">Lists installed packages.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-i &lt;package&gt; (sudo)</code></strong></td><td style="padding-top:0px" valign="top">Installs package from a package file.</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>apt-get</code></strong></td><td style="padding-top: 7px" valign="top">Advanced Package Tool built on top of '<code>dpkg</code>'. New command called simply '<code>apt</code>' is also available. It merges the functionalities of '<code>apt-get</code>' and '<code>apt-cache</code>'.</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>update</code></strong></td><td style="padding-top:0px" valign="top">Updates local list of existing packages.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-u dist-upgrade</code></strong></td><td style="padding-top:0px" valign="top">Upgrades by intelligently handling changing dependencies with new versions of packages. To regularly update put this line in '<code>crontab</code>':<br> '<code>apt-get update && apt-get -u dist-upgrade</code>'.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>upgrade</code></strong></td><td style="padding-top:0px" valign="top">Same as dist-upgrade, but will not remove installed packages or install new ones.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>install &lt;package&gt;</code></strong></td><td style="padding-top:0px" valign="top">Also updates single package.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>remove &lt;package&gt;</code></strong></td><td style="padding-top:0px" valign="top">Removes package but leaves its configurations.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>remove apt-listchanges</code></strong></td><td style="padding-top:0px" valign="top">Useful when Debian can't find a package.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>purge &lt;package&gt;</code></strong></td><td style="padding-top:0px" valign="top">Removes package and its configurations. Run '<code>apt-get autoremove</code>' after to remove all dependencies that are not needed anymore.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>autoremove</code></strong></td><td style="padding-top:0px" valign="top">Removes unneeded packages.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>source &lt;package&gt;</code></strong></td><td style="padding-top:0px" valign="top">Downloads code.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>build-dep &lt;package&gt;</code></strong></td><td style="padding-top:0px" valign="top">Installs the build dependencies.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>--yes</code></strong></td><td style="padding-top:0px" valign="top">Answers with 'yes' to most questions (Except the ones that can have potentially harmful consequences).</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>--force-yes</code></strong></td><td style="padding-top:0px" valign="top">Answers 'yes' to all questions (Not recommended).</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>apt-cache</code></strong></td><td style="padding-top: 7px" valign="top">Queries the APT's internal database.</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>search &lt;keyword&gt;</code></strong></td><td style="padding-top:0px" valign="top">Searches packages like '<code>apropos</code>', but globally.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>show &lt;package&gt;</code></strong></td><td style="padding-top:0px" valign="top">Shows package info like version, dependencies, etc.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>showpkg &lt;package&gt;</code></strong></td><td style="padding-top:0px" valign="top">Similar, but also shows the packages that depend on the searched package (reverse dependencies).</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>policy &lt;package&gt;</code></strong></td><td style="padding-top:0px" valign="top">Shows installed and remote version.</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>apt-file</code></strong></td><td style="padding-top: 7px" valign="top">APT package searching utility.</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>search &lt;file&gt;</code></strong></td><td style="padding-top:0px" valign="top">Search in which package a file is included.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>update</code></strong></td><td style="padding-top:0px" valign="top">Updates local list of package contents.</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>aptitude</code></strong></td><td style="padding-top: 7px" valign="top">Enables package browsing (skin for apt-get).</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>search '~i!~M'</code></strong></td><td style="padding-top:0px" valign="top">Lists installed packages that were not installed as a dependency, with short description of each.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>search &lt;package&gt;</code></strong></td><td style="padding-top:0px" valign="top">Package search.</td></tr>
+
+</table> </td> </tr>
+
+</tbody></table><br>
+<table width=780 style="border-spacing: 0px"><tbody>
+<tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>winetricks</code></strong></td><td style="padding-top: 1px" valign="top">Installs wine applications.</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>update-alternatives</code></strong></td><td style="padding-top: 1px" valign="top">Maintains symbolic links determining default commands.</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>unattended-upgrade</code></strong></td><td style="padding-top: 1px" valign="top">Automatic installation of security upgrades.</td></tr>
+
+</tbody></table><br>
+<h3>Commands</h3>
+<table width=780 style="border-spacing: 0px"><tbody>
+<tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>apropos &lt;cmd&gt;</code></strong></td><td style="padding-top: 7px" valign="top">Searches the manual page names and descriptions (use quotes for phrases).</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-a</code></strong></td><td style="padding-top:0px" valign="top">Matches all keywords.</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>whatis &lt;cmd&gt;</code></strong></td><td style="padding-top: 1px" valign="top">Displays one-line manual page description.</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>whereis &lt;cmd&gt;</code></strong></td><td style="padding-top: 1px" valign="top">Locates the binary, source, and manual page files for a command.</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>which &lt;cmd&gt;</code></strong></td><td style="padding-top: 1px" valign="top">Locates only the binary of a command.</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>wtf</code></strong></td><td style="padding-top: 1px" valign="top">Translates acronyms and filename suffixes.</td></tr>
+
+</tbody></table><br>
+<h3>Install Mantra</h3>
+<pre><code>./configure --help
+./configure
+make
+sudo make install</code></pre>
+<h2>General<a href="#general" name="general">#</a></h2>
+<table width=780 style="border-spacing: 0px"><tbody>
+<tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>su</code></strong></td><td style="padding-top: 7px" valign="top">Switches user.</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>- &lt;user&gt;</code></strong></td><td style="padding-top:0px" valign="top">Switches to user.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-</code></strong></td><td style="padding-top:0px" valign="top">Switches to root.</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>man</code></strong></td><td style="padding-top: 7px" valign="top">Help on commands.</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>&lt;section&gt;</code></strong></td><td style="padding-top:0px" valign="top">Section numbers: 1. Programs, 2. System calls, 3. Library calls, 4. Special files, 5. File formats, 7. Miscellaneous, 8. System administration commands</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>echo</code></strong></td><td style="padding-top: 7px" valign="top">Prints passed text.</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-n</code></strong></td><td style="padding-top:0px" valign="top">Does not add newline at the end.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-e</code></strong></td><td style="padding-top:0px" valign="top">Enables interpretation of backslashed letters.</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>xargs &lt;cmd&gt;</code></strong></td><td style="padding-top: 7px" valign="top">Passes output from one command to arguments of another:<br> '<code>echo -a | xargs ls</code>'</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-t</code></strong></td><td style="padding-top:0px" valign="top">Echoes the command before executing it.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-p</code></strong></td><td style="padding-top:0px" valign="top">Echoes command and asks for confirmation before execution.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-0</code></strong></td><td style="padding-top:0px" valign="top">Input items are separated by null character instead of space.</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>tee &lt;file&gt;</code></strong></td><td style="padding-top: 7px" valign="top">Sends output of a program to specified file and to standard output:<br> '<code>&lt;cmd_1&gt; | tee out_1.txt | &lt;cmd_2&gt;</code>'</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>/dev/tty</code></strong></td><td style="padding-top:0px" valign="top">Sends output to terminal and to standard output</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>expr</code></strong></td><td style="padding-top: 7px" valign="top">Evaluates passed expression.</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>1 + 1</code></strong></td><td style="padding-top:0px" valign="top">Prints '<code>2</code>'.</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>bc</code></strong></td><td style="padding-top: 7px" valign="top">Evaluates input. It's basically a calculator, but also provides some control commands.</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>echo 1 + 1 | bc</code></strong></td><td style="padding-top:0px" valign="top">Prints '<code>2</code>'.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>echo "scale=5;3/4" | bc</code></strong></td><td style="padding-top:0px" valign="top">Prints '<code>.75000</code>'.</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>sh</code></strong></td><td style="padding-top: 7px" valign="top">Runs command interpreter (shell). Can run a script even if not executable.</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-c '&lt;commands&gt;'</code></strong></td><td style="padding-top:0px" valign="top">Starts new non-interactive shell and reads commands from arguments instead of '<code>stdin</code>'.<br> To append lines to system configuration file run:<br> '<code>sudo sh -c 'echo "&lt;text&gt;" &gt;&gt; &lt;file&gt;'</code>'</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>bash</code></strong></td><td style="padding-top: 7px" valign="top">Runs bash command interpreter (shell).</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-c</code></strong></td><td style="padding-top:0px" valign="top">Reads commands from arguments instead of '<code>stdin</code>'.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-n &lt;script&gt;</code></strong></td><td style="padding-top:0px" valign="top">Checks script for errors.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-x</code></strong></td><td style="padding-top:0px" valign="top">Prints commands before execution. Useful for debugging.</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>gcc</code></strong></td><td style="padding-top: 7px" valign="top">Gnu C compiler. Run '<code>g++</code>' for C++ code.</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-w</code></strong></td><td style="padding-top:0px" valign="top">Supresses warnings (Only prints errors).</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-Wall</code></strong></td><td style="padding-top:0px" valign="top">All warnings.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-g</code></strong></td><td style="padding-top:0px" valign="top">Compile for debugging.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-std=&lt;std&gt;</code></strong></td><td style="padding-top:0px" valign="top">Sets the standard. Suported standards for C are:<br> '<code>c90</code>', '<code>gnu90</code>', '<code>c99</code>', '<code>gnu99</code>', '<code>c11</code>' and '<code>gnu11</code>'.<br> Suported standarts for C++ are:<br> '<code>c++98</code>', '<code>gnu++98</code>', '<code>c++11</code>' and '<code>gnu++11</code>'.<br> '<code>gnu90</code>' and '<code>gnu++98</code>' are the default options.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-O&lt;level&gt;</code></strong></td><td style="padding-top:0px" valign="top">Optimization level. '<code>0</code>': Reduce compilation time (default), '<code>1-3</code>': - Level of optimization, '<code>s</code>' - Optimize for size, '<code>g</code>' - Optimize debugging experience.</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>run-parts &lt;dir&gt;</code></strong></td><td style="padding-top: 1px" valign="top">Runs all scripts or programs in a directory.</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>date</code></strong></td><td style="padding-top: 7px" valign="top">Tells and sets date and time.</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-s &lt;string&gt;</code></strong></td><td style="padding-top:0px" valign="top">Sets date.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>+%T -s "10:13:13"</code></strong></td><td style="padding-top:0px" valign="top">Sets time.</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>timedatectl</code></strong></td><td style="padding-top: 7px" valign="top">Controls the system time and date.</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>set-timezone CET</code></strong></td><td style="padding-top:0px" valign="top">Sets timezone.</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>cal</code></strong></td><td style="padding-top: 1px" valign="top">Calendar</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>xclip</code></strong></td><td style="padding-top: 1px" valign="top">Copies to clipboard.</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>mkfifo &lt;pipe&gt;</code></strong></td><td style="padding-top: 1px" valign="top">Creates named pipe during that shell session.</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>mkisofs</code></strong></td><td style="padding-top: 1px" valign="top">Creates a DVD/CD image.</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>genisoimage</code></strong></td><td style="padding-top: 1px" valign="top">Creates a DVD/CD image (Debian).</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>cdrecord</code></strong></td><td style="padding-top: 1px" valign="top">Writes to a CD/DVD.</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>acpi</code></strong></td><td style="padding-top: 1px" valign="top">Checks battery.</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>fdisk -l (sudo)</code></strong></td><td style="padding-top: 1px" valign="top">Shows partitions.</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>shutdown</code></strong></td><td style="padding-top: 7px" valign="top">Closes down the system at a given time.</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>now</code></strong></td><td style="padding-top:0px" valign="top">Takes you to the single user mode.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-h now</code></strong></td><td style="padding-top:0px" valign="top">Begins the shutdown procedure, same as '<code>halt</code>' and '<code>poweroff</code>'.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-h 11:50</code></strong></td><td style="padding-top:0px" valign="top">At 11:50.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-r now</code></strong></td><td style="padding-top:0px" valign="top">Same as '<code>reboot</code>'.</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>make</code></strong></td><td style="padding-top: 7px" valign="top">Utility that maintains groups of programs.</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-q</code></strong></td><td style="padding-top:0px" valign="top">Doesn't run any commands, just returns '<code>0</code>' exit code if everything is up to date or non-zero otherwise.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-B</code></strong></td><td style="padding-top:0px" valign="top">Unconditionally makes all targets.</td></tr>
+
+</table> </td> </tr>
+
+</tbody></table><br>
+<h3>Files</h3>
+<table width=780 style="border-spacing: 0px"><tbody>
+<tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>ls</code></strong></td><td valign="top"> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:7px" valign="top"><strong><code>-d</code></strong></td><td style="padding-top:7px" valign="top">List directory names instead of contents</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-S</code></strong></td><td style="padding-top:0px" valign="top">Sort by size</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-t</code></strong></td><td style="padding-top:0px" valign="top">Sort by time</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-1</code></strong></td><td style="padding-top:0px" valign="top">One file per line</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>./*</code></strong></td><td style="padding-top:0px" valign="top">Ls one level deep</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-i</code></strong></td><td style="padding-top:0px" valign="top">Get inode number of file (file id). Use '<code>sudo find / -inum &lt;number&gt;</code>' to find all links that point to same file.</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>cp</code></strong></td><td valign="top"> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:7px" valign="top"><strong><code>-i</code></strong></td><td style="padding-top:7px" valign="top">Interactive (Prompts before overwrite)</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-v</code></strong></td><td style="padding-top:0px" valign="top">Verbose (Explains what is being done)</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-R</code></strong></td><td style="padding-top:0px" valign="top">Copy directories recursively</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-p</code></strong></td><td style="padding-top:0px" valign="top">Preserve mode, ownership and timestamps</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>--preserve=all</code></strong></td><td style="padding-top:0px" valign="top">Also preserves context, links and xattr</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>rm</code></strong></td><td valign="top"> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:7px" valign="top"><strong><code>-i</code></strong></td><td style="padding-top:7px" valign="top">Interactive (Prompts before every removal)</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-v</code></strong></td><td style="padding-top:0px" valign="top">Verbose (Explains what is being done)</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-f</code></strong></td><td style="padding-top:0px" valign="top">Force remove (Does not prompt, useful if '<code>rm</code>' is aliased with '<code>-i</code>')</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-R</code></strong></td><td style="padding-top:0px" valign="top">Removes directories and their content recursively</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>mkdir</code></strong></td><td valign="top"> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:1px" valign="top"><strong><code>-p</code></strong></td><td style="padding-top:1px" valign="top">Make parents if needed</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>ln</code></strong></td><td style="padding-top: 7px" valign="top">Makes links to the files</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-s &lt;file&gt; &lt;link&gt;</code></strong></td><td style="padding-top:0px" valign="top">Makes symbolic link. If you want to use relative paths you must be in links directory !!!!!!!!!!!!!!!!!!!!!!</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>df</code></strong></td><td valign="top"> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:1px" valign="top"><strong><code>-h</code></strong></td><td style="padding-top:1px" valign="top">Displays humanly readable free disk space</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>du</code></strong></td><td valign="top"> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:1px" valign="top"><strong><code>-s &lt;dir&gt;</code></strong></td><td style="padding-top:1px" valign="top">Directory size</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>mc</code></strong></td><td style="padding-top: 7px" valign="top">Midnight commander</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>Alt o</code></strong></td><td style="padding-top:0px" valign="top">Open parent dir in another panel</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>Ctrl o</code></strong></td><td style="padding-top:0px" valign="top">Switch to bash</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>find &lt;dir&gt;</code></strong></td><td valign="top"> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:7px" valign="top"><strong><code>-name &lt;file&gt;</code></strong></td><td style="padding-top:7px" valign="top">Search by name</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-regex &lt;regex&gt;</code></strong></td><td style="padding-top:0px" valign="top">Use regex for name search</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-not</code></strong></td><td style="padding-top:0px" valign="top">Insert before other options to negate</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-maxdepth &lt;levels&gt;</code></strong></td><td style="padding-top:0px" valign="top">Descend only to levels deep</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-samefile &lt;file&gt;</code></strong></td><td style="padding-top:0px" valign="top">Find all hard links of a file</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-xdev</code></strong></td><td style="padding-top:0px" valign="top">Don't descend directories on other filesystems</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-inum &lt;inum&gt;</code></strong></td><td style="padding-top:0px" valign="top">Find files with the inode number</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-type &lt;f|d|b|...&gt;</code></strong></td><td style="padding-top:0px" valign="top">Find files of type</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-delete</code></strong></td><td style="padding-top:0px" valign="top">Delete found files</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-exec &lt;cmd&gt; {} \;</code></strong></td><td style="padding-top:0px" valign="top">Find files and execute command for every found file. '<code>{}</code>' is replaced with filename</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-exec &lt;cmd&gt; {} +</code></strong></td><td style="padding-top:0px" valign="top">Find files and execute command with all filenames in place of '<code>{}</code>'</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-atime +/-n</code></strong></td><td style="padding-top:0px" valign="top">Find files that were last accessed less or more than n days.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-print0 | xargs -0 &lt;cmd&gt;</code></strong></td><td style="padding-top:0px" valign="top">Sends found files to a command as parameters. Uses '<code>NUL</code>' character as separator, necessary for filenames with spaces</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>locate &lt;regex&gt;</code></strong></td><td style="padding-top: 7px" valign="top">Similar as '<code>find</code>' but using index</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-i</code></strong></td><td style="padding-top:0px" valign="top">Ignore case</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>--regex</code></strong></td><td style="padding-top:0px" valign="top">Interprets all patterns as extended regex</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-0 | xargs -0 &lt;cmd&gt;</code></strong></td><td style="padding-top:0px" valign="top">Sends found files to a command as parameters.</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>updatedb (sudo)</code></strong></td><td style="padding-top: 1px" valign="top">Update locate index</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>md5sum</code></strong></td><td style="padding-top: 1px" valign="top">Prints md5 sum hash of a file</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>read</code></strong></td><td style="padding-top: 7px" valign="top">Read single line from standard input</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-n 1</code></strong></td><td style="padding-top:0px" valign="top">Print after reading one character</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-s</code></strong></td><td style="padding-top:0px" valign="top">Do not echo input coming from terminal</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>shred</code></strong></td><td style="padding-top: 1px" valign="top">Securely remove files</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>file</code></strong></td><td style="padding-top: 1px" valign="top">Determine file's type</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>tree</code></strong></td><td style="padding-top: 1px" valign="top">Ls in a tree-like (hierarchical) format</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>install</code></strong></td><td style="padding-top: 1px" valign="top">Copy files and set attributes</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>gpg</code></strong></td><td style="padding-top: 7px" valign="top">Decrypt file with password</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-c</code></strong></td><td style="padding-top:0px" valign="top">Encrypt</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>mktemp</code></strong></td><td style="padding-top: 1px" valign="top">Create a temporary file or directory in '<code>/tmp</code>' and returns it's name.</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>rename</code></strong></td><td valign="top"> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:1px" valign="top"><strong><code>s/&lt;from&gt;/&lt;to&gt; &lt;files&gt;</code></strong></td><td style="padding-top:1px" valign="top">Renames multiple files using '<code>sed</code>' syntax</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>rsync</code></strong></td><td style="padding-top: 7px" valign="top">A fast, versatile, remote (and local) file-copying tool</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-Hbaz -e ssh</code></strong></td><td style="padding-top:0px" valign="top">'<code>&lt;src_dir&gt; &lt;user&gt;@&lt;host&gt;:&lt;dest_dir&gt;</code>' - Backs up the 'src-dir': '<code>-H</code>' preserves hard links, '<code>-b</code>' renames preexisting destination files (back up), '<code>-a</code>' preserve everything except hard links and '<code>-z</code>' compresses.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>cmp</code></strong></td><td style="padding-top:0px" valign="top">Compares two files, similar to diff but also for binaries</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>stat</code></strong></td><td style="padding-top: 7px" valign="top">Displays files status</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-c%X</code></strong></td><td style="padding-top:0px" valign="top">Time of last modification of the file</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>readlink</code></strong></td><td valign="top"> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:1px" valign="top"><strong><code>-f</code></strong></td><td style="padding-top:1px" valign="top">Follow link recursively and print files path</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>xdg-open</code></strong></td><td style="padding-top: 1px" valign="top">Open file with default application for the file type</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>dialog</code></strong></td><td style="padding-top: 1px" valign="top">Display dialog box from shell script</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>watch</code></strong></td><td style="padding-top: 1px" valign="top">Execute command periodically</td></tr>
+
+</tbody></table><br>
+<h3>Archives</h3>
+<table width=780 style="border-spacing: 0px"><tbody>
+<tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>dtrx</code></strong></td><td valign="top"> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:1px" valign="top"><strong><code>&lt;archive&gt;</code></strong></td><td style="padding-top:1px" valign="top">Universal archive extractor</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>tar</code></strong></td><td valign="top"> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:7px" valign="top"><strong><code>xvzf &lt;file&gt;.tar.gz (.tgz)</code></strong></td><td style="padding-top:7px" valign="top">Decompress and detar</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>xvjf &lt;file&gt;.tar.bz2</code></strong></td><td style="padding-top:0px" valign="top">Decompress and detar</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-cf &lt;archive&gt;.tar &lt;files&gt;</code></strong></td><td style="padding-top:0px" valign="top">Compress</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>unzip</code></strong></td><td valign="top"> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:7px" valign="top"><strong><code>\*.zip</code></strong></td><td style="padding-top:7px" valign="top">Backslash is necessary so that bash doesn't expand the '<code>*</code>'</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-d &lt;dir&gt;</code></strong></td><td style="padding-top:0px" valign="top">Extract into directory (create if doesn't exist)</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>zip</code></strong></td><td valign="top"> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:7px" valign="top"><strong><code>-r &lt;archive&gt; &lt;dir&gt;</code></strong></td><td style="padding-top:7px" valign="top">Compress whole directory recursively.</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-g &lt;archive&gt; &lt;files&gt;</code></strong></td><td style="padding-top:0px" valign="top">Add files to existing archive (grow).</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>unrar</code></strong></td><td valign="top"> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:1px" valign="top"><strong><code>e</code></strong></td><td style="padding-top:1px" valign="top">Extract files from rar archive</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>zcat</code></strong></td><td style="padding-top: 1px" valign="top">Cats gziped file</td></tr>
+
+</tbody></table><br>
+<h3>Terminal Multiplexers</h3>
+<table width=780 style="border-spacing: 0px"><tbody>
+<tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>screen</code></strong></td><td style="padding-top: 7px" valign="top">Switch between multiple virtual terminals (useful in ssh). Prefix for a command is '<code>Ctrl a</code>'.</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>c</code></strong></td><td style="padding-top:0px" valign="top">New terminal,</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>n</code></strong></td><td style="padding-top:0px" valign="top">Next,</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>p</code></strong></td><td style="padding-top:0px" valign="top">Previous,</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>a</code></strong></td><td style="padding-top:0px" valign="top">Go to beginning of line,</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>|</code></strong></td><td style="padding-top:0px" valign="top">New region vertically,</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>S</code></strong></td><td style="padding-top:0px" valign="top">New region horizontally,</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>tab</code></strong></td><td style="padding-top:0px" valign="top">Move to next region,</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>Q</code></strong></td><td style="padding-top:0px" valign="top">Close all but selected region,</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>X</code></strong></td><td style="padding-top:0px" valign="top">Kill the current region,</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>esc</code></strong></td><td style="padding-top:0px" valign="top">Enter copy/scrollback mode -&gt; space: start/stop marking,</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>]</code></strong></td><td style="padding-top:0px" valign="top">Paste,</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>k</code></strong></td><td style="padding-top:0px" valign="top">Kill window,</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>t</code></strong></td><td style="padding-top:0px" valign="top">Show time and avg CPU load</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>tmux</code></strong></td><td style="padding-top: 7px" valign="top">Terminal multiplexer, better screen. Prefix for a command is '<code>Ctrl b</code>'. Most commands are the same as in '<code>screen</code>'.</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>ls</code></strong></td><td style="padding-top:0px" valign="top">Shows running sessions</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>attach [-t &lt;no&gt;]</code></strong></td><td style="padding-top:0px" valign="top">Attach to running session</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>d</code></strong></td><td style="padding-top:0px" valign="top">Detach from currently attached session<br></td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>pgup</code></strong></td><td style="padding-top:0px" valign="top">Enter in copy mode and pageup,</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>[</code></strong></td><td style="padding-top:0px" valign="top">Copy mode,</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>]</code></strong></td><td style="padding-top:0px" valign="top">Paste,<br></td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>"</code></strong></td><td style="padding-top:0px" valign="top">Split horizontally,</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>%</code></strong></td><td style="padding-top:0px" valign="top">Split vertically</td></tr>
+
+</table> </td> </tr>
+
+</tbody></table><br>
+<h2>Bash<a href="#bash" name="bash">#</a></h2>
+<table width=780 style="border-spacing: 0px"><tbody>
+<tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>"$x"</code></strong></td><td style="padding-top: 1px" valign="top">ALWAYS PUT DOUBLE QUOTES AROUND VARIABLE!!!!!!!!!!!!!!! All variables in bash are global!!!!!!!</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>"$*"</code></strong></td><td style="padding-top: 1px" valign="top">Combines all the arguments into single word, separating them with first character of IFS variable. If IFS is not set, space is used. If IFS is null, no separator is used!!!!!!!!! No args provided will result in one empty string being passed on!!!</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>"$@"</code></strong></td><td style="padding-top: 1px" valign="top">Use this instead!!!!! Will retain arguments as-is, so no args provided will result in no args being passed on. This is in most cases what you want to use for passing on arguments. Google: "$@" is right almost everytime, and $* is wrong almost everytime.</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>"$#"</code></strong></td><td style="padding-top: 1px" valign="top">Number of arguments</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>"$1"</code></strong></td><td style="padding-top: 1px" valign="top">First argument</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>"$0"</code></strong></td><td style="padding-top: 1px" valign="top">Name of the script</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>$'\n'</code></strong></td><td style="padding-top: 1px" valign="top">String literal with escape sequences (there is a backslash before n) If you want IFS to be a new line (useful with for loop) you need to: '<code>IFS=$'\n'</code>' - The dollar forces substitution!!!!! Also if you want 'while read line; do...' to preserve leading spaces and tabs, you need to set IFS=""</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>$?</code></strong></td><td style="padding-top: 1px" valign="top">Exit code of last command (0 - Success)</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>Ctrl-Z, kill %%</code></strong></td><td style="padding-top: 1px" valign="top">Kill looping bash script</td></tr>
+
+</tbody></table><br>
+<table width=780 style="border-spacing: 0px"><tbody>
+<tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>test &lt;expr&gt;</code></strong></td><td style="padding-top: 7px" valign="top">Same as '<code>[ &lt;expr&gt; ]</code>'. Returns zero exit status if true.</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-n</code></strong></td><td style="padding-top:0px" valign="top">Is string non empty</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-z</code></strong></td><td style="padding-top:0px" valign="top">Is string empty</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-a</code></strong></td><td style="padding-top:0px" valign="top">And</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-o</code></strong></td><td style="padding-top:0px" valign="top">Or</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>=</code></strong></td><td style="padding-top:0px" valign="top">Strings are equal</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-nt</code></strong></td><td style="padding-top:0px" valign="top">File newer than</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-ot</code></strong></td><td style="padding-top:0px" valign="top">Older then</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-d</code></strong></td><td style="padding-top:0px" valign="top">Directory exists</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-e</code></strong></td><td style="padding-top:0px" valign="top">File exists</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-f</code></strong></td><td style="padding-top:0px" valign="top">Is a regular file</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-h</code></strong></td><td style="padding-top:0px" valign="top">Its a symbolic link</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-r</code></strong></td><td style="padding-top:0px" valign="top">Has read permission</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-w</code></strong></td><td style="padding-top:0px" valign="top">Has write permission</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-x</code></strong></td><td style="padding-top:0px" valign="top">Has execute permission</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>[[ &lt;expr&gt; ]]</code></strong></td><td style="padding-top: 1px" valign="top">Same as '<code>[</code>', but without word splitting and filename expansion. And with additional operators: '<code>&&</code>', '<code>||</code>', '<code>&lt;</code>', '<code>&gt;</code>' (lexicographic less, more), and also regular expression matching.</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>=~</code></strong></td><td style="padding-top: 1px" valign="top">Regex comparison operator: '<code>[[ "$HOST" =~ ^user.* ]]</code>'</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>let &lt;expr&gt;</code></strong></td><td style="padding-top: 1px" valign="top">Executes expression: let a="$b"+2</td></tr>
+
+</tbody></table><br>
+<table width=780 style="border-spacing: 0px"><tbody>
+<tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>$(command)</code></strong></td><td style="padding-top: 1px" valign="top">Same as '<code>command</code>'</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>eval &lt;variable&gt;</code></strong></td><td style="padding-top: 1px" valign="top">Execute string as command</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>$RANDOM</code></strong></td><td style="padding-top: 1px" valign="top">0 - 32767</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>input='<code>cat</code>'</code></strong></td><td style="padding-top: 1px" valign="top">Getting standard input</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>-</code></strong></td><td style="padding-top: 1px" valign="top">In place of a file name means standard in or out</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>set -o vi</code></strong></td><td style="padding-top: 1px" valign="top">Set line editing to vi mode</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>pushd .</code></strong></td><td style="padding-top: 1px" valign="top">Put current dir on stack</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>popd</code></strong></td><td style="padding-top: 1px" valign="top">Pop dir from stack</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>cd -</code></strong></td><td style="padding-top: 1px" valign="top">go to last dir</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>source &lt;script&gt;</code></strong></td><td style="padding-top: 1px" valign="top">Run script: for example source /etc/profile (same as . &lt;cmd&gt;)</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>#!/bin/bash</code></strong></td><td style="padding-top: 1px" valign="top">Good practice to insert at beginning of a bash script</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>export</code></strong></td><td valign="top"> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:1px" valign="top"><strong><code>PATH="$PATH:&lt;dir&gt;"</code></strong></td><td style="padding-top:1px" valign="top">Adds new directory to path environment variable.</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>read</code></strong></td><td valign="top"> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:1px" valign="top"><strong><code>-p &lt;message&gt;</code></strong></td><td style="padding-top:1px" valign="top">Prompt for user input</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>var=${1:-"&lt;default&gt;"}</code></strong></td><td style="padding-top: 1px" valign="top">Setting variable with default value if $1 is empty</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>getopts</code></strong></td><td style="padding-top: 1px" valign="top">Parse parameters/arguments, builtin</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>getopt</code></strong></td><td style="padding-top: 1px" valign="top">GNU version is even better then getopts, not a builtin</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>while read line; do &lt;commands&gt;; done &lt; &lt;file&gt;</code></strong></td><td style="padding-top: 7px" valign="top">Read from file line by line</td></tr>
+<tr> <td></td> <td> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-r</code></strong></td><td style="padding-top:0px" valign="top">Do not treat backslashes as escape characters</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>complete -F &lt;completion_function&gt; &lt;cmd&gt;</code></strong></td><td style="padding-top: 1px" valign="top">Set completion function for command</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>complete -p &lt;cmd&gt;</code></strong></td><td style="padding-top: 1px" valign="top">Print the completion function for command</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>compgen -c &lt;pattern&gt;</code></strong></td><td style="padding-top: 1px" valign="top">Print all completions for pattern</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>help &lt;builtin&gt;</code></strong></td><td style="padding-top: 1px" valign="top">Display information about builtin command</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>wait</code></strong></td><td style="padding-top: 1px" valign="top">Wait for all background processes to end</td></tr>
+
+</tbody></table><br>
+<h3>Safety</h3>
+<table width=780 style="border-spacing: 0px"><tbody>
+<tr><td style="padding-right: 10px;padding-top: 7px;width: 155px" valign="top"><strong><code>set</code></strong></td><td valign="top"> <table style="border-spacing: 0px">
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:7px" valign="top"><strong><code>-e</code></strong></td><td style="padding-top:7px" valign="top">Exit if any command fails</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-u</code></strong></td><td style="padding-top:0px" valign="top">Exit if referencing undefined variable</td></tr>
+<tr> <td style="width:1px;white-space:nowrap;padding-right:10px;padding-top:0px" valign="top"><strong><code>-o pipefail</code></strong></td><td style="padding-top:0px" valign="top">If any command in a pipeline fails, its return code is used as the return code of the whole pipeline</td></tr>
+
+</table> </td> </tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>IFS=$'\n\t'</code></strong></td><td style="padding-top: 1px" valign="top">Remove space from the default Internal Field Separator</td></tr>
+
+</tbody></table><br>
+<h3>History</h3>
+<table width=780 style="border-spacing: 0px"><tbody>
+<tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>sudo !!</code></strong></td><td style="padding-top: 1px" valign="top">Run the last command as root</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>␣&lt;cmd&gt;</code></strong></td><td style="padding-top: 1px" valign="top">Execute a command without saving it in the history</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>!&lt;cmd&gt;</code></strong></td><td style="padding-top: 1px" valign="top">Run last command that starts with cmd</td></tr>
+
+</tbody></table><br>
+<h3>Redirections</h3>
+<table width=780 style="border-spacing: 0px"><tbody>
+<tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>&lt;cmd&gt; 2&gt; /dev/null</code></strong></td><td style="padding-top: 1px" valign="top">Redirect error output to '<code>null</code>'</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>&lt;cmd&gt; &&gt; /dev/null</code></strong></td><td style="padding-top: 1px" valign="top">Redirect both standard and error output to '<code>null</code>'</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>&lt;cmd&gt; &gt;&2</code></strong></td><td style="padding-top: 1px" valign="top">Write to stderr</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>&lt;cmd&gt; 2&gt;&1 | less</code></strong></td><td style="padding-top: 1px" valign="top">Add stderr to stdout and print it with less (useful for gcc)</td></tr>
+
+</tbody></table><br>
+<h3>Arrays And Lines</h3>
+<p>Reads line by line from variable. To preserve spaces use '<code>IFS=</code>'.</p>
+<pre><code>while IFS= read -r line; do
+    echo "... $line ..."
+done &lt;&lt;&lt; "$list" — </code></pre>
+<table width=780 style="border-spacing: 0px"><tbody>
+<tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>${a[1]}</code></strong></td><td style="padding-top: 1px" valign="top">Value of the second element of the array</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>for c in ${a[@]}</code></strong></td><td style="padding-top: 1px" valign="top">Iterate over array</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>${varname:offset:length}</code></strong></td><td style="padding-top: 1px" valign="top">Get substring: '<code>s="aeiou"; ${s:3:1} -&gt; o</code>'</td></tr>
+<tr><td width=155px></td><td></td></tr><tr><td style="padding-right: 10px;padding-top: 1px;width: 155px" valign="top"><strong><code>${#var}</code></strong></td><td style="padding-top: 1px" valign="top">Length of a var</td></tr>
