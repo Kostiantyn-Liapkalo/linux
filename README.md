@@ -1,4 +1,4 @@
-##Certainly! Here are some common Linux shell commands:
+## Linux shell commands:
 
 1. **ls**: Lists files and directories in the current directory.
 
